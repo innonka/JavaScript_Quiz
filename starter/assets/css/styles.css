@@ -4,7 +4,7 @@ body {
 }
 
 a {
-  color: #563d7c;
+  color: blueviolet;
   text-decoration: none;
   transition: color 0.1s;
 }
