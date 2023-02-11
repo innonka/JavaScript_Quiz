@@ -1,76 +1,70 @@
-var data = {
-  Question: [
-    {
-      Q: "How do you add a comment in a JavaScript?",
-      A: [
-        {
-          option: "//This is my comment",
-          correct: "true",
-        },
-        {
-          option: "<! This is my comment!>",
-          correct: "false",
-        },
-        {
-          option: "This is my comment",
-          correct: "false",
-        },
-      ],
-    },
-    {
-      Q: "WHow do you declare a JavaScript variable?",
-
-      A: [
-        {
-          option: "var carColor",
-          correct: "true",
-        },
-        {
-          option: "variable carColor",
-          correct: "false",
-        },
-        {
-          option: "v carColor",
-          correct: "false",
-        },
-      ],
-    },
-    {},
-    {
-      Q: "Which event occurs when the user clicks on an HTML element?",
-      A: [
-        {
-          option: "onchange",
-          correct: "false",
-        },
-        {
-          option: "onclick",
-          correct: "true",
-        },
-        {
-          option: "onmouseclick",
-          correct: "false",
-        },
-      ],
-    },
-    
-    {
-      Q: "Which of the following is correct about JavaScript?",
-      A: [
-        {
-          option: "JavaScript is a lightweight programming language",
-          correct: "false",
-        },
-        {
-          option:
-            "JavaScript allow you to build interactivity into static html pages",
-          correct: "false",
-        },
-        {
-          option: "All of the above",
-          correct: "true",
-        },
-      ],
-    },
-  ],
-};
+const questionsData = [
+  {
+    question: "How do you add a comment in a JavaScript?",
+    options: [
+      {
+        text: "//This is my comment",
+        isCorrect: true,
+      },
+      {
+        text: "<! This is my comment!>",
+        isCorrect: false,
+      },
+      {
+        text: "This is my comment",
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    question: "How do you declare a JavaScript variable?",
+    options: [
+      {
+        text: "var carColor",
+        isCorrect: true,
+      },
+      {
+        text: "variable carColor",
+        isCorrect: false,
+      },
+      {
+        text: "v carColor",
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    question: "Which event occurs when the user clicks on an HTML element?",
+    options: [
+      {
+        text: "onchange",
+        isCorrect: false,
+      },
+      {
+        text: "onclick",
+        isCorrect: true,
+      },
+      {
+        text: "onmouseclick",
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is correct about JavaScript?",
+    options: [
+      {
+        text: "JavaScript is a lightweight programming language",
+        isCorrect: false,
+      },
+      {
+        text: "JavaScript allows you to build interactivity into static html pages",
+        isCorrect: true,
+      },
+      {
+        text: "All of the above",
+        isCorrect: false,
+      },
+    ],
+  },
+];
