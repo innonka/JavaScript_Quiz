@@ -27,7 +27,7 @@ The following animation demonstrates the application functionality:
 
 ## Deployment 
 
-* Application deployed at live URL 
+* Application deployed at [LIVE URL](https://innonka.github.io/JavaScript_Quiz/)
 
 
 ## License
