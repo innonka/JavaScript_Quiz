@@ -8,8 +8,8 @@ const inputInitials = document.querySelector("#initials");
 const submitBtn = document.querySelector("#submit");
 const finalScore = document.querySelector("#final-score");
 
-const soundCorrect = new Audio("assets/sfx/correct.wav");
-const soundIncorrect = new Audio("assets/sfx/incorrect.wav");
+const soundCorrect = new Audio("starter/assets/sfx/correct.wav");
+const soundIncorrect = new Audio("starter/assets/sfx/incorrect.wav");
 
 const questionTitle = document.querySelector("#question-title");
 const answerOptions = document.querySelector("#choices");
