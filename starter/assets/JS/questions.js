@@ -4,15 +4,15 @@ const questionsData = [
     options: [
       {
         text: "//This is my comment",
-        isCorrect: true,
+        correct: true,
       },
       {
         text: "<! This is my comment!>",
-        isCorrect: false,
+        correct: false,
       },
       {
         text: "This is my comment",
-        isCorrect: false,
+        correct: false,
       },
     ],
   },
@@ -21,15 +21,15 @@ const questionsData = [
     options: [
       {
         text: "var carColor",
-        isCorrect: true,
+        correct: true,
       },
       {
         text: "variable carColor",
-        isCorrect: false,
+        correct: false,
       },
       {
         text: "v carColor",
-        isCorrect: false,
+        correct: false,
       },
     ],
   },
@@ -38,15 +38,15 @@ const questionsData = [
     options: [
       {
         text: "onchange",
-        isCorrect: false,
+        correct: false,
       },
       {
         text: "onclick",
-        isCorrect: true,
+        correct: true,
       },
       {
         text: "onmouseclick",
-        isCorrect: false,
+        correct: false,
       },
     ],
   },
@@ -55,15 +55,15 @@ const questionsData = [
     options: [
       {
         text: "JavaScript is a lightweight programming language",
-        isCorrect: false,
+        correct: false,
       },
       {
         text: "JavaScript allows you to build interactivity into static html pages",
-        isCorrect: true,
+        correct: true,
       },
       {
         text: "All of the above",
-        isCorrect: false,
+        correct: false,
       },
     ],
   },

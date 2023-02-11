@@ -1,25 +1,21 @@
-var highscores = document.getElementById("highscores");
-var clearBtn = document.getElementById("clear");
+document.addEventListener("DOMContentLoaded", function() {
+  const highscoresList = document.getElementById("highscores");
+  const clearBtn = document.getElementById("clear");
 
-var keys = Object.keys(localStorage);
-var li;
-var length = keys.length;
+  const keys = Object.keys(localStorage);
+  for (let i = keys.length - 1; i >= 0; i--) {
+    const key = keys[i];
+    const score = localStorage.getItem(key);
 
-keys.forEach(() => {
-  li = document.createElement("li");
-  console.log(keys[1]);
-  li.innerText = `${keys[length - 1]} - ${localStorage.getItem(
-    keys[length - 1]
-  )}`;
-  highscores.appendChild(li);
-  length--;
-});
-
-clearBtn.addEventListener("click", () => {
-  localStorage.clear();
-  var child = highscores.lastElementChild;
-  if (child) {
-    highscores.removeChild(child);
-    child = highscores.lastElementChild;
+    const li = document.createElement("li");
+    li.innerText = `${key} - ${score}`;
+    highscoresList.appendChild(li);
   }
+
+  clearBtn.addEventListener("click", () => {
+    localStorage.clear();
+    while (highscoresList.firstChild) {
+      highscoresList.removeChild(highscoresList.firstChild);
+    }
+  });
 });

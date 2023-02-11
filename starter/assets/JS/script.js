@@ -5,130 +5,151 @@ const timer = document.querySelector("#time");
 const feedback = document.querySelector(".feedback");
 const endScreen = document.querySelector("#end-screen");
 const inputInitials = document.querySelector("#initials");
-const submit = document.querySelector("#submit");
+const submitBtn = document.querySelector("#submit");
 const finalScore = document.querySelector("#final-score");
 
+const soundCorrect = new Audio("assets/sfx/correct.wav");
+const soundIncorrect = new Audio("assets/sfx/incorrect.wav");
 
-var soundCorrect = new Audio("assets/sfx/correct.wav");
-var soundIncorrect = new Audio("assets/sfx/incorrect.wav");
+const questionTitle = document.querySelector("#question-title");
+const answerOptions = document.querySelector("#choices");
 
-var questionTitle = document.querySelector("#question-title");
-var answereOptions = document.querySelector(".choices");
-var questionCounter = 0;
-var timerCounter = 65;
-var ol;
-var li;
-var button;
-var time;
-var totalQuestions;
+const questionsDiv = document.querySelector("#questions");
+const endBtn = document.querySelector("#end");
 
-function showScreen(screen, toShow) {
-  if (toShow == true) {
-    screen.classList.remove("hide");
-    screen.classList.add("start");
-  } else {
-    screen.classList.remove("start");
-    screen.classList.add("hide");
-  }
-}
+let questionCounter = 0;
+let timerCounter;
+let timeInterval;
+let totalQuestions = questionsData.length;
 
-//Start the quiz
-start_btn.addEventListener("click", (event) => {
-  showScreen(questionSection, true);
-  startScreen.classList.add("hide");
-  totalQuestions = Object.keys(data.Question).length;
+let finalScoreValue = 0;
 
+// Start the quiz
+startBtn.addEventListener("click", startQuiz);
+endBtn.addEventListener("click", resetScreen);
+
+function startQuiz() {
+  questionCounter = 0;
+  inputInitials.value = "";
+  showScreen(startScreen, false);
+  timerCounter = 100;
   createQuestionScreen();
   startTimer();
-});
+  questionsDiv.classList.remove("hide");
+}
 
-//create Question screen
+// Create question screen
 function createQuestionScreen() {
-  var i = 0;
-  var tempArr = data.Question[questionCounter].A;
+  const tempArr = questionsData[questionCounter].options; // data.Question[questionCounter].A;
+  const ol = document.createElement("ol");
+  questionTitle.innerText = questionsData[questionCounter].question;
 
-  ol = document.createElement("ol");
-  questionTitle.innerText = data.Question[questionCounter].Q;
-  tempArr.forEach((item) => {
-    li = document.createElement("li");
-    button = document.createElement("button");
-    li.setAttribute("data-index", i);
-    var newNode = document.createTextNode(item.option);
-    li.appendChild(newNode);
-    button.appendChild(li);
-    ol.appendChild(button);
-    i++;
+  tempArr.forEach((item, index) => {
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    button.setAttribute("data-index", index);
+    button.classList.add("answer-button");
+    button.textContent = index + ". " + item.text;
+
+    button.addEventListener("click", answerOptionClick);
+
+    li.appendChild(button);
+    ol.appendChild(li);
   });
-  // i = 0;
-  answereOptions.appendChild(ol);
+
+  answerOptions.appendChild(ol);
 }
-//Reset the question screen
+
+// Reset the question screen
 function resetQuestion() {
-  answereOptions.removeChild(ol);
+  answerOptions.innerHTML = "";
 }
 
-//eventListener for option buttons
-answereOptions.addEventListener("click", (e) => {
-  var i = e.target.getAttribute("data-index");
+function showScreen(screen, show) {
+  if (show === false) {
+    screen.classList.add("hide");
+  } else {
+    screen.classList.remove("hide");
+  }
+}
 
+// Event listener for option buttons
+//answerOptions.addEventListener("click", (event) => {
+function answerOptionClick(event) {
+  const i = event.target.getAttribute("data-index");
   showScreen(feedback, true);
 
-  if (questionCounter >= totalQuestions - 1) {
-    if (data.Question[questionCounter].A[i].correct === "true") {
-      feedback.innerText = "Correct!";
-
-      soundCorrect.play();
-      timerCounter--;
-    } else {
-      feedback.innerText = "Wrong!";
-
-      soundIncorrect.play();
-      timerCounter -= 5;
-    }
-    createEndScreen();
+  if (questionsData[questionCounter].options[i].correct === true) {
+    showFeedback("Correct!");
+    soundCorrect.play();
   } else {
-    if (data.Question[questionCounter].A[i].correct === "true") {
-      feedback.innerText = "Correct!";
-      soundCorrect.play();
-      timerCounter--;
-    } else {
-      feedback.innerText = "Wrong!";
+    showFeedback("Wrong!");
+    soundIncorrect.play();
+    timerCounter -= 5;
+  }
 
-      soundIncorrect.play();
-      timerCounter -= 5;
-    }
-    questionCounter++;
-    resetQuestion();
+  questionCounter++;
+  resetQuestion();
+
+  if (questionCounter >= totalQuestions) {
+    endQuiz();
+  } else {
     createQuestionScreen();
   }
-});
+}
 
-//End Screen
+function endQuiz() {
+  clearInterval(timeInterval);
+  createEndScreen();
+}
+
+// End screen
+
 function createEndScreen() {
-  var input;
   showScreen(endScreen, true);
-  finalScore.innerText = timerCounter;
-  clearTimeout(time);
-  timer.innerText = 65;
+  finalScore.textContent = timerCounter;
+  finalScoreValue = timerCounter;
   showScreen(questionSection, false);
 }
 
 inputInitials.addEventListener("click", () => {
   showScreen(feedback, false);
 });
-submit.addEventListener("click", () => {
-  input = inputInitials.value;
-  localStorage.setItem(input, timerCounter);
-  location.href = "highscores.html";
+
+submitBtn.addEventListener("click", () => {
+  const initials = inputInitials.value;
+
+  if (initials == null || initials.trim().length == 0) {
+    return;
+  }
+
+  localStorage.setItem(initials, finalScoreValue);
+
+  resetScreen();
 });
+
+function resetScreen() {
+  showScreen(endScreen, false);
+  showScreen(startScreen, true);
+  showScreen(feedback, false);
+}
 
 //start timer
 function startTimer() {
-  time = setInterval(() => {
-    timer.innerText = timerCounter;
+  timer.innerText = timerCounter;
+
+  timeInterval = setInterval(() => {
     timerCounter--;
-    if (timerCounter == 0) {
-      createEndScreen();
+    timer.innerText = timerCounter;
+    if (timerCounter <= 0) {
+      endQuiz();
     }
+  }, 100);
+}
+
+function showFeedback(value) {
+  feedback.textContent = value;
+  setTimeout(() => {
+    feedback.textContent = "";
   }, 1000);
 }

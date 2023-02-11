@@ -46,15 +46,16 @@ ol {
 
 li {
   padding: 5px;
-  list-style: decimal inside none;
+  /* list-style: decimal inside none; */
+  list-style-type: none;
 }
 
-li:nth-child(odd) {
+/* li:nth-child(odd) {
   background-color: #f3edfc;
-}
+} */
 
 .wrapper {
-  margin: 100px auto 0 auto;
+  margin: 45px auto 0 auto;
   max-width: 600px;
 }
 
@@ -85,4 +86,8 @@ li:nth-child(odd) {
   position: absolute;
   top: 10px;
   right: 10px;
+}
+
+.answer-button {
+  text-align: left;
 }
